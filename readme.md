@@ -6,11 +6,11 @@
 * Literate programming with Markdown
 * Partial application
 
-	# comment
+		# comment
 
-	##
-	multiline comment
-	##
+		##
+		multiline comment
+		##
 
 ## Assignment
 
