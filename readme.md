@@ -47,9 +47,9 @@ By default, the dictionary itself (aka 'this' or 'self') is return after being e
 
 	example param:
 		wat: param
-	
+
 	example 'hi' # evaluates to (wat: 'hi')
-		
+
 You may mark a specific value to return with '~'
 
 	do_stuff x y:
@@ -59,14 +59,16 @@ You may mark a specific value to return with '~'
 
 	do_stuff 1 2 # evaluates to 42
 
-equivalent to:
+In contrast
 
-	do_stuff x y: # returns 42 
+	do_stuff x y: # returns 42
 		one_thing
 		another_thing
 		42
 
-## anonymous functions 
+Will return (one_thing, another_thing, 42); in other words, the evaluated dictionary for do_stuff
+
+## anonymous functions
 
 When using colon with argument application, functions are automatically anonymous:
 
@@ -78,7 +80,7 @@ Here, the portion 'x: x+4-2/2' is anonymous
 
 	list: 1, 2, 3, 4
 
-equivalent to: 
+equivalent to:
 
 	list:
 		1
@@ -102,7 +104,7 @@ equivalent to:
 	Walrus name:
 		name: name # setter/getter
 		roar: "rawr! I'm {^name}"
-	
+
 	wally: Walrus 'wally'
 	wally roar # "rawr! I'm wally"
 
@@ -113,7 +115,7 @@ The '^' operator accesses the parent dictionary.
 		name: 'francis'
 		set_name n:
 			^name: n
-	
+
 	s: Seal
 	s name # 'francis'
 	s set_name 'george'
@@ -171,7 +173,7 @@ Place in parens to the right of the parameter.
 	years_old: (max: 10, ida: 9, tim: 11)
 	ages: years_old each child age: "{child} is {age}"
 
-	files: 
+	files:
 		filenames each f: compile (f contents to_string)
 
 ## list splicing and slicing
@@ -180,7 +182,7 @@ Place in parens to the right of the parameter.
 	start: ns from 0 to 2 # 1,2,3
 	middle: ns from 3 to 5 # 4,5,6
 	end: ns from 3 # 4,5,6,7,8,9
-	copy: ns 
+	copy: ns
 
 None of it modifies the original list
 
@@ -225,13 +227,13 @@ More declarative truth tables:
 			false,false,_    : "C"
 
 Could be implemented entirely in the language itself probably
-	
+
 		table conditions:
 			cs: conditions
-			where structure: 
+			where structure:
 				structure each vals result:
 					vals is ^cs -> ~result
-			
+
 # destructuring assignment
 
 	a, b, c: 1, 2, 3
@@ -322,7 +324,7 @@ You can implicitly apply methods (keys) to new keys
 '*' denotes something we haven't evaluated yet.
 
 Nothing evaluates until actually called with the correct number of parameters
-	 
+
 	sam move
 	(Snake 'sammy the python') move    # params satisfied for Snake
 	(parent: *, move: *) move          # evalute Snake 'sammy'. move satisfied
@@ -336,10 +338,10 @@ Nothing evaluates until actually called with the correct number of parameters
 
 	x:
 		y: 1
-	
+
 	a extends x:
 		z: 2
-	
+
 	a y # 1
 
 'extends' probably could be implemented in the language itself
