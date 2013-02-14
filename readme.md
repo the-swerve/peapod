@@ -106,6 +106,19 @@ equivalent to:
 	wally: Walrus 'wally'
 	wally roar # "rawr! I'm wally"
 
+
+The '^' operator accesses the parent dictionary.
+
+	Seal:
+		name: 'francis'
+		set_name n:
+			^name: n
+	
+	s: Seal
+	s name # 'francis'
+	s set_name 'george'
+	s name # 'george'
+
 # checking existence:
 
 	print (elvis defined? -> "I knew it!")
@@ -319,22 +332,18 @@ Nothing evaluates until actually called with the correct number of parameters
 		~> (io side-effect) "Slithering..."
 	(parent: *, move: print "", io stuff) move # no more calls
 
-You can't extend existing classes without modifying the original module; you can only subordinate them.
+### Extending dictionaries
 
-### Class fields
-
-Fields can be changed with setters
-
-	x a:
-		a: a
-		set_a val:
-			^a: val
+	x:
+		y: 1
 	
-	instance: x 'hi'
-	instance a # 'hi'
-	instance set_a 'bye'
-	instance bye # 'bye'
+	a extends x:
+		z: 2
+	
+	a y # 1
 
-Fields can't be set without a setter function (since '^' is only accessible within the dictionary definition)
+'extends' probably could be implemented in the language itself
+
+Fields can't be set without a setter function (since '^' is only accessible within the dictionary definition itself)
 
 Note: data fields are equivalent to function fields
