@@ -2,7 +2,6 @@
 
 * Lazily evaluated
 * Optional type inference
-* Stateful
 * Literate programming with Markdown
 * Partial application
 
