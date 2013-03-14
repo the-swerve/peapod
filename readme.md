@@ -4,6 +4,7 @@
 * Optional type inference
 * Literate programming with Markdown
 * Partial application
+* Highly readable, yet extremely concise
 
 		# comment
 
@@ -69,11 +70,12 @@ Will return (one_thing, another_thing, 42); in other words, the evaluated dictio
 
 ## anonymous functions
 
-When using colon with argument application, functions are automatically anonymous:
+When using a pipe inside argument application, functions are
+anonymous:
 
-	(1,2,3,4) each x: x+4-2/2
+	(1,2,3,4) each x | x+4-2/2
 
-Here, the portion 'x: x+4-2/2' is anonymous
+Here, the portion 'x | x+4-2/2' is an anonymous function
 
 ## lists:
 
@@ -101,7 +103,6 @@ equivalent to:
 # objects:
 
 	Walrus name:
-		name: name # setter/getter
 		roar: "rawr! I'm {^name}"
 
 	wally: Walrus 'wally'
@@ -287,7 +288,6 @@ You can implicitly apply methods (keys) to new keys
 ## Parent classes
 
 	Animal name: # 'name' can be thought of as a constructor parameter
-		name: name # getter/setter
 		move meters:
 			print "{^name} moved {meters as string}m" # '^' can be thought of as 'self'
 
@@ -348,3 +348,55 @@ Nothing evaluates until actually called with the correct number of parameters
 Fields can't be set without a setter function (since '^' is only accessible within the dictionary definition itself)
 
 Note: data fields are equivalent to function fields
+
+## More Examples - hooray
+
+### Sinatra style router
+
+	get '/profile/:name' params |
+		"Hello {params name}!"
+
+	get '/[profile|account|person|pal|homie]/:name' params |
+		"Hello {params name}!"
+
+(or whatever in-string regex denoter you want to use)_
+
+### Red-black tree
+
+Node:
+
+	value
+
+	red?: false
+	left: ()
+	right: ()
+	parent: ()
+
+	as_string: "{^value}"
+
+
+Tree:
+
+	_root: Node () # empty node
+	
+	search key:
+		x: ^root
+
+### Defining a conditional
+
+if alive
+	eat food
+else
+	sleep
+
+if expr func :
+	expr -> func
+
+	else func2:
+		!^expr -> func2
+
+if (alive) (eat food) (else sleep)
+(alive -> eat food) (else sleep)
+eat food (else sleep)
+eat food ()
+eat food
